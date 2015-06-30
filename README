@@ -1,0 +1,44 @@
+# Gene2RefSeq-Parser
+
+Wanted to add better support for working with the gene2refseq or
+gene2accession files from NCBI.
+
+You will need to add a repository to your ~/.m2/settings.xml file.
+Here is an example settings.xml:
+
+<settings>
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <repositories>
+	<repository>
+	  <id>renci.repository</id>
+	  <name>renci.repository</name>
+	  <url>http://archiva.renci.org:8080/repository/internal</url>
+	  <releases>
+	    <enabled>true</enabled>
+	  </releases>
+	  <snapshots>
+	    <enabled>false</enabled>
+	  </snapshots>
+	</repository>
+	<repository>
+	  <id>renci.snapshot.repository</id>
+	  <name>renci.repository</name>
+	  <url>http://archiva.renci.org:8080/repository/snapshots</url>
+	  <releases>
+	    <enabled>false</enabled>
+	  </releases>
+	  <snapshots>
+	    <enabled>true</enabled>
+	  </snapshots>
+	</repository>
+      </repositories>
+    </profile>
+  </profiles>
+  <activeProfiles>
+    <activeProfile>dev</activeProfile>
+  </activeProfiles>
+</settings>
+
+
