@@ -5,11 +5,11 @@ gene2accession files from NCBI.
 
 Code snippet:
 
-	Gene2AccessionParser parser = Gene2AccessionParser.getInstance();
-	AndFilter andFilter = new AndFilter(Arrays.asList(new Filter[] { 
-	        new TaxonIdFilter(9606),
-	        new AssemblyFilter("Reference GRCh38.p2 Primary Assembly") }));
-	List<Record> recordList = parser.parse(andFilter, new File("/tmp", "gene2refseq.gz"));
+Gene2AccessionParser parser = Gene2AccessionParser.getInstance();
+AndFilter andFilter = new AndFilter(Arrays.asList(new Filter[] { 
+        new TaxonIdFilter(9606),
+        new AssemblyFilter("Reference GRCh38.p2 Primary Assembly") }));
+List<Record> recordList = parser.parse(andFilter, new File("/tmp", "gene2refseq.gz"));
 
 You will need to add a repository to your ~/.m2/settings.xml file.
 Here is an example settings.xml:
