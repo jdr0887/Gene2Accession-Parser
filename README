@@ -1,4 +1,4 @@
-# Gene2RefSeq-Parser
+# Gene2Accession-Parser
 
 Wanted to add better support for working with the gene2refseq or
 gene2accession files from NCBI.
