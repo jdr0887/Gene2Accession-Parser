@@ -14,7 +14,6 @@ public class Scratch {
     @Test
     public void testFilterAssembly() {
         Gene2AccessionParser parser = Gene2AccessionParser.getInstance();
-
         AndFilter andFilter = new AndFilter(Arrays.asList(new Filter[] { new TaxonIdFilter(9606),
                 new AssemblyFilter("Reference GRCh38.p2 Primary Assembly") }));
         List<Record> recordList = parser.parse(andFilter, new File("/tmp", "gene2refseq.filtered.gz"));
