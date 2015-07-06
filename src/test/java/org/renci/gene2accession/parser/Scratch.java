@@ -18,10 +18,10 @@ public class Scratch {
 
     @Test
     public void testFilterAssembly() {
-        G2AParser parser = G2AParser.getInstance();
+        G2AParser parser = G2AParser.getInstance(16);
         G2AAndFilter andFilter = new G2AAndFilter(Arrays.asList(new G2AFilter[] { new G2ATaxonIdFilter(9606),
                 new G2AAssemblyFilter("Reference GRCh38.p2 Primary Assembly") }));
-        List<Record> recordList = parser.parse(andFilter, new File("/tmp", "gene2refseq.filtered.gz"));
+        List<Record> recordList = parser.parse(andFilter, new File("/tmp", "gene2refseq.gz"));
         assertTrue(recordList != null && !recordList.isEmpty());
         for (Record record : recordList) {
             assertTrue(record.getTaxonId().equals(9606));
