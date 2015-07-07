@@ -10,7 +10,7 @@ public class G2ARNANucleotideAccessionVersionPrefixFilter implements G2AFilter {
 
     private List<String> prefixList;
 
-    public G2ARNANucleotideAccessionVersionPrefixFilter(List<String> prefixList) {
+    public G2ARNANucleotideAccessionVersionPrefixFilter(final List<String> prefixList) {
         super();
         this.prefixList = prefixList;
     }
