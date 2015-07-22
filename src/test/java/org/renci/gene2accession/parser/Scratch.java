@@ -6,12 +6,14 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.renci.gene2accession.G2AFilter;
 import org.renci.gene2accession.G2AParser;
 import org.renci.gene2accession.filter.G2AAndFilter;
 import org.renci.gene2accession.filter.G2AAssemblyFilter;
 import org.renci.gene2accession.filter.G2AGenomicNucleotideAccessionVersionPrefixFilter;
+import org.renci.gene2accession.filter.G2AProteinAccessionVersionPrefixFilter;
 import org.renci.gene2accession.filter.G2ARNANucleotideAccessionVersionPrefixFilter;
 import org.renci.gene2accession.filter.G2ATaxonIdFilter;
 import org.renci.gene2accession.model.Record;
@@ -22,15 +24,41 @@ public class Scratch {
     public void testFilterAssembly() {
         G2AParser parser = G2AParser.getInstance(16);
         G2AAndFilter andFilter = new G2AAndFilter(Arrays.asList(new G2AFilter[] { new G2ATaxonIdFilter(9606),
-                new G2AAssemblyFilter("Reference GRCh38.p2 Primary Assembly"),
+                new G2AAssemblyFilter("Reference.+Primary Assembly"),
+                new G2AProteinAccessionVersionPrefixFilter(Arrays.asList(new String[] { "NP_" })),
                 new G2AGenomicNucleotideAccessionVersionPrefixFilter(Arrays.asList(new String[] { "NC_" })),
-                new G2ARNANucleotideAccessionVersionPrefixFilter(Arrays.asList(new String[] { "NM_", "XM_" })) }));
+                new G2ARNANucleotideAccessionVersionPrefixFilter(Arrays.asList(new String[] { "NM_", "NR_" })) }));
         List<Record> recordList = parser.parse(andFilter, new File("/tmp", "gene2refseq.gz"));
         assertTrue(recordList != null && !recordList.isEmpty());
         for (Record record : recordList) {
             assertTrue(record.getTaxonId().equals(9606));
-            assertTrue(record.getAssembly().contains("GRCh38.p2"));
+            assertTrue(record.getAssembly().contains("Reference"));
+            assertTrue(record.getAssembly().contains("Primary Assembly"));
+            if (!record.getAssembly().contains("GRCh38.p2")) {
+                System.out.println(record.toString());
+            }
         }
         System.out.println(recordList.size());
     }
+
+    @Test
+    public void testFindOddities() {
+        G2AParser parser = G2AParser.getInstance(16);
+        G2AAndFilter andFilter = new G2AAndFilter(Arrays.asList(new G2AFilter[] { new G2ATaxonIdFilter(9606),
+                new G2AAssemblyFilter("Reference GRCh38.p2 Primary Assembly"),
+                new G2AGenomicNucleotideAccessionVersionPrefixFilter(Arrays.asList(new String[] { "NC_" })),
+                new G2ARNANucleotideAccessionVersionPrefixFilter(Arrays.asList(new String[] { "NM_", "NR_" })) }));
+        List<Record> recordList = parser.parse(andFilter, new File("/tmp", "gene2refseq.gz"));
+        assertTrue(recordList != null && !recordList.isEmpty());
+        int count = 0;
+        for (Record record : recordList) {
+            if (StringUtils.isNotEmpty(record.getRNANucleotideAccessionVersion())
+                    && StringUtils.isNotEmpty(record.getProteinAccessionVersion())
+                    && StringUtils.isEmpty(record.getGenomicNucleotideAccessionVersion())) {
+                count++;
+            }
+        }
+        System.out.println(count);
+    }
+
 }
