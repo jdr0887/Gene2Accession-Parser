@@ -1,21 +1,25 @@
 package org.renci.gene2accession.filter;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.commons.lang3.StringUtils;
 import org.renci.gene2accession.G2AFilter;
 import org.renci.gene2accession.model.Record;
 
 public class G2AAssemblyFilter implements G2AFilter {
 
-    private String assembly;
+    private final Pattern p;
 
     public G2AAssemblyFilter(String assembly) {
         super();
-        this.assembly = assembly;
+        p = Pattern.compile(assembly);
     }
 
     @Override
     public boolean accept(Record record) {
-        if (StringUtils.isNotEmpty(record.getAssembly()) && record.getAssembly().equals(assembly)) {
+        Matcher m = p.matcher(record.getAssembly());
+        if (StringUtils.isNotEmpty(record.getAssembly()) && m.matches()) {
             return true;
         }
         return false;
