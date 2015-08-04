@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 
 public class G2AParser {
 
-    private final Logger logger = LoggerFactory.getLogger(G2AParser.class);
+    private static final Logger logger = LoggerFactory.getLogger(G2AParser.class);
 
     private int threads;
 
