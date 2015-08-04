@@ -10,12 +10,14 @@ public enum StatusType {
 
     PROVISIONAL,
 
+    PIPELINE,
+
     REVIEWED,
 
     VALIDATED,
 
     SUPPRESSED,
-    
+
     WGS,
 
     NA;
