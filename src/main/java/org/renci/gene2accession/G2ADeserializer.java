@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class G2ADeserializer implements Callable<Record> {
 
-    private final Logger logger = LoggerFactory.getLogger(G2ADeserializer.class);
+    private static final Logger logger = LoggerFactory.getLogger(G2ADeserializer.class);
 
     private G2AFilter filter;
 
