@@ -1,7 +1,7 @@
 <document>
   <body>
     <section name="About">
-      <p>GenBank Flat File Parser</p>
+      <p>Gene2Accession Parser</p>
     </section>
     <subsection name="Example Usage">
       <source><![CDATA[
